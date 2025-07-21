@@ -1,15 +1,6 @@
-import { Geist, Geist_Mono } from "next/font/google";
+import ResponsiveNavbar from "@/components/Navbar";
 import "./globals.css";
-
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
+import ResponsiveFooter from "@/components/Footer";
 
 export const metadata = {
   title: "snapcart home",
@@ -19,10 +10,13 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
-        {children}
+      <body className="min-h-screen flex flex-col">
+        <ResponsiveNavbar />
+
+        {/* Main content fills the remaining space */}
+        <main className="flex-1">{children}</main>
+
+        <ResponsiveFooter />
       </body>
     </html>
   );

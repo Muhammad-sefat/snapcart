@@ -1,7 +1,9 @@
+import HomeBanner from "@/components/homecomponents/HomeBanner";
+
 export default function Home() {
   return (
     <>
-      <h2>My snapcart project</h2>
+      <HomeBanner />
     </>
   );
 }
