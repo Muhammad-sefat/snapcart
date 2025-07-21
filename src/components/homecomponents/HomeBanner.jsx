@@ -1,6 +1,13 @@
+"use client";
+import { useRouter } from "next/navigation";
 import React from "react";
 
 const HomeBanner = () => {
+  const router = useRouter();
+
+  const handleClick = () => {
+    router.push("/add-product");
+  };
   return (
     <div className="relative w-full h-[80vh]">
       <img
@@ -19,8 +26,11 @@ const HomeBanner = () => {
           Explore the latest smartwatches, earbuds, and gadgets at unbeatable
           prices.
         </p>
-        <button className="bg-black/50 hover:bg-orange-500 border border-orange-500 transition px-6 py-3 rounded-xl font-semibold text-white cursor-pointer">
-          Shop Now
+        <button
+          onClick={handleClick}
+          className="bg-black/50 hover:bg-orange-500 border border-orange-500 transition px-6 py-3 rounded-xl font-semibold text-white cursor-pointer"
+        >
+          Add Product
         </button>
       </div>
     </div>

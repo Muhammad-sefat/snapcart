@@ -11,11 +11,7 @@ const ResponsiveNavbar = () => {
   return (
     <nav className="flex items-center justify-between w-full relative dark:bg-slate-900 bg-white  section-padding-x py-[8px]">
       {/* logo */}
-      <img
-        src="https://i.ibb.co/0BZfPq6/darklogo.png"
-        alt="logo"
-        className="w-[55px] "
-      />
+      <img src="/tech.jpg" alt="logo" className="w-[85px] rouded-full" />
 
       {/* nav links */}
       <ul className="items-center gap-[20px] text-[1rem] text-[#424242] md:flex hidden">
