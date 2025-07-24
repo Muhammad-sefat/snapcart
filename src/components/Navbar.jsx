@@ -4,6 +4,8 @@ import React, { useState } from "react";
 // react icons
 import { IoIosSearch } from "react-icons/io";
 import { CiMenuFries } from "react-icons/ci";
+import Link from "next/link";
+import NavItem from "./homecomponents/NavItem";
 
 const ResponsiveNavbar = () => {
   const [mobileSidebarOpen, setMobileSidebarOpen] = useState(false);
@@ -11,25 +13,17 @@ const ResponsiveNavbar = () => {
   return (
     <nav className="flex items-center justify-between w-full relative dark:bg-slate-900 bg-white  section-padding-x py-[8px]">
       {/* logo */}
-      <img src="/tech.jpg" alt="logo" className="w-[85px] rouded-full" />
+      {/* <img src="/tech.jpg" alt="logo" className="w-[85px] rouded-full" /> */}
+      <h2 className="text-lg font-bold bg-gradient-to-r from-orange-500 via-pink-500 to-purple-600 bg-clip-text text-transparent">
+        SnapCart
+      </h2>
 
       {/* nav links */}
-      <ul className="items-center gap-[20px] text-[1rem] text-[#424242] md:flex hidden">
-        <li className="before:w-0 hover:before:w-full before:bg-orange-500 before:h-[2px] before:transition-all before:duration-300 before:absolute relative before:rounded-full before:bottom-[-2px] dark:text-[#abc2d3] hover:text-orange-500 transition-all duration-300 before:left-0 cursor-pointer capitalize">
-          home
-        </li>
-
-        <li className="before:w-0 hover:before:w-full before:bg-orange-500 before:h-[2px] before:transition-all before:duration-300 before:absolute relative before:rounded-full before:bottom-[-2px] dark:text-[#abc2d3] hover:text-orange-500 transition-all duration-300 before:left-0 cursor-pointer capitalize">
-          features
-        </li>
-
-        <li className="before:w-0 hover:before:w-full before:bg-orange-500 before:h-[2px] before:transition-all before:duration-300 before:absolute relative before:rounded-full before:bottom-[-2px] dark:text-[#abc2d3] hover:text-orange-500 transition-all duration-300 before:left-0 cursor-pointer capitalize">
-          blogs
-        </li>
-
-        <li className="before:w-0 hover:before:w-full before:bg-orange-500 before:h-[2px] before:transition-all before:duration-300 before:absolute relative before:rounded-full before:bottom-[-2px] dark:text-[#abc2d3] hover:text-orange-500 transition-all duration-300 before:left-0 cursor-pointer capitalize">
-          shop
-        </li>
+      <ul className="items-center gap-[20px] text-[1rem] md:flex hidden">
+        <NavItem href="/" label="Home" />
+        <NavItem href="/features" label="Features" />
+        <NavItem href="/blogs" label="Blogs" />
+        <NavItem href="/shop" label="Shop" />
       </ul>
 
       {/* action buttons */}
@@ -62,22 +56,11 @@ const ResponsiveNavbar = () => {
           />
           <IoIosSearch className="absolute dark:text-slate-400 top-[8px] left-3 text-gray-500 text-[1.3rem]" />
         </div>
-        <ul className="items-center gap-[20px] text-[1rem] text-gray-600 flex flex-col">
-          <li className="before:w-0 hover:before:w-full before:bg-[#3B9DF8] before:h-[2px] before:transition-all before:duration-300 before:absolute relative before:rounded-full before:bottom-[-2px] dark:text-[#abc2d3] hover:text-[#3B9DF8] transition-all duration-300 before:left-0 cursor-pointer capitalize">
-            home
-          </li>
-
-          <li className="before:w-0 hover:before:w-full before:bg-[#3B9DF8] before:h-[2px] before:transition-all before:duration-300 before:absolute relative before:rounded-full before:bottom-[-2px] dark:text-[#abc2d3] hover:text-[#3B9DF8] transition-all duration-300 before:left-0 cursor-pointer capitalize">
-            features
-          </li>
-
-          <li className="before:w-0 hover:before:w-full before:bg-[#3B9DF8] before:h-[2px] before:transition-all before:duration-300 before:absolute relative before:rounded-full before:bottom-[-2px] dark:text-[#abc2d3] hover:text-[#3B9DF8] transition-all duration-300 before:left-0 cursor-pointer capitalize">
-            blogs
-          </li>
-
-          <li className="before:w-0 hover:before:w-full before:bg-[#3B9DF8] before:h-[2px] before:transition-all before:duration-300 before:absolute relative before:rounded-full before:bottom-[-2px] dark:text-[#abc2d3] hover:text-[#3B9DF8] transition-all duration-300 before:left-0 cursor-pointer capitalize">
-            shop
-          </li>
+        <ul className="items-center gap-[20px] text-[1rem] flex flex-col">
+          <NavItem href="/" label="Home" />
+          <NavItem href="/features" label="Features" />
+          <NavItem href="/blogs" label="Blogs" />
+          <NavItem href="/shop" label="Shop" />
         </ul>
       </aside>
     </nav>
