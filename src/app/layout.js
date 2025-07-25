@@ -1,6 +1,8 @@
 import ResponsiveNavbar from "@/components/Navbar";
 import "./globals.css";
 import ResponsiveFooter from "@/components/Footer";
+import { ReduxProvider } from "@/lib/redux/provider";
+import { Toaster } from "react-hot-toast";
 
 export const metadata = {
   title: "snapcart home",
@@ -12,10 +14,8 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <body className="min-h-screen flex flex-col">
         <ResponsiveNavbar />
-
-        {/* Main content fills the remaining space */}
-        <main className="flex-1">{children}</main>
-
+        <ReduxProvider className="flex-1">{children}</ReduxProvider>
+        <Toaster position="top-center" reverseOrder={false} />
         <ResponsiveFooter />
       </body>
     </html>

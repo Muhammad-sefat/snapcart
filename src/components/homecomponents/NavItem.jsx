@@ -10,7 +10,7 @@ const NavItem = ({ href, label, onClick }) => {
       className={`before:w-0 hover:before:w-full before:bg-orange-500 before:h-[2px] before:transition-all before:duration-300 before:absolute relative before:rounded-full before:bottom-[-2px] before:left-0 capitalize transition-all duration-300 cursor-pointer ${
         isActive
           ? "text-orange-500 dark:text-orange-400 before:w-full"
-          : "text-[#424242] dark:text-[#abc2d3]"
+          : "text-[#424242] dark:text-[#eff3f5]"
       }`}
       onClick={onClick}
     >
