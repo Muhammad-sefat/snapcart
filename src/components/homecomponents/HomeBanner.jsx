@@ -16,18 +16,19 @@ const HomeBanner = () => {
     const splitSubTitle = new SplitText(subTitleText.current, {
       type: "lines",
     });
-    gsap.from(splitTitle.words, {
+    const tl = gsap.timeline();
+    tl.from(splitTitle.words, {
       y: 50,
       opacity: 0,
-      stagger: 0.2,
-      duration: 1,
-      ease: "power4.out",
+      stagger: 0.1,
+      duration: 0.4,
+      ease: "power2.out",
     });
     gsap.from(splitSubTitle.lines, {
       y: 50,
       opacity: 0,
-      duration: 1,
-      ease: "power4.out",
+      duration: 0.4,
+      ease: "power2.out",
     });
     // gsap.from(buttonRef.current, {
     //   y: 50,
@@ -47,7 +48,6 @@ const HomeBanner = () => {
         src="/assets/banner.jpg"
         alt="Banner Image"
       />
-
       {/* Overlay */}
       <div className="absolute inset-0 bg-black/60 z-10"></div>
       <div className="absolute inset-0 z-20 flex flex-col items-center justify-center text-center text-white px-4">
@@ -64,7 +64,7 @@ const HomeBanner = () => {
         <button
           // ref={buttonRef}
           onClick={handleClick}
-          className="relative bg-black/50 hover:bg-orange-500 border border-orange-500 transition px-6 py-3 rounded-xl font-semibold text-white cursor-pointer"
+          className="relative bg-black/50 hover:bg-orange-500 border border-orange-500 transition px-6 py-2.5 rounded-xl font-semibold text-white cursor-pointer"
         >
           Add Product
         </button>
