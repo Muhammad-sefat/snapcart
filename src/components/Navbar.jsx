@@ -21,7 +21,7 @@ const ResponsiveNavbar = () => {
       {/* nav links */}
       <ul className="items-center gap-[20px] text-[1rem] md:flex hidden">
         <NavItem href="/" label="Home" />
-        <NavItem href="/features" label="Features" />
+        <NavItem href="/feature" label="Features" />
         <NavItem href="/blogs" label="Blogs" />
         <NavItem href="/shop" label="Shop" />
       </ul>

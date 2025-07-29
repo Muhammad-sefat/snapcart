@@ -10,7 +10,6 @@ const HomeBanner = () => {
   const router = useRouter();
   const titleText = useRef();
   const subTitleText = useRef();
-  // const buttonRef = useRef();
   useGSAP(() => {
     const splitTitle = new SplitText(titleText.current, { type: "words" });
     const splitSubTitle = new SplitText(subTitleText.current, {
@@ -30,13 +29,6 @@ const HomeBanner = () => {
       duration: 0.4,
       ease: "power2.out",
     });
-    // gsap.from(buttonRef.current, {
-    //   y: 50,
-    //   opacity: 0,
-    //   delay: 0.5,
-    //   duration: 1,
-    //   ease: "power4.out",
-    // });
   }, []);
   const handleClick = () => {
     router.push("/add-product");
