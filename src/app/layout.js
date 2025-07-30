@@ -1,8 +1,7 @@
-import ResponsiveNavbar from "@/components/Navbar";
 import "./globals.css";
-import ResponsiveFooter from "@/components/Footer";
-import { ReduxProvider } from "@/lib/redux/provider";
-import { Toaster } from "react-hot-toast";
+import LayoutWrapper from "@/components/LayoutWrapper";
+import { Roboto } from "next/font/google";
+const roboto = Roboto({ weight: ["400", "500", "700"], subsets: ["latin"] });
 
 export const metadata = {
   title: "snapcart home",
@@ -12,11 +11,8 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body className="min-h-screen flex flex-col">
-        <ResponsiveNavbar />
-        <ReduxProvider className="flex-1">{children}</ReduxProvider>
-        <Toaster position="top-center" reverseOrder={false} />
-        <ResponsiveFooter />
+      <body className={roboto.className}>
+        <LayoutWrapper>{children}</LayoutWrapper>
       </body>
     </html>
   );

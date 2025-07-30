@@ -54,11 +54,10 @@ const HomeBanner = () => {
           prices.
         </p>
         <button
-          // ref={buttonRef}
           onClick={handleClick}
           className="relative bg-black/50 hover:bg-orange-500 border border-orange-500 transition px-6 py-2.5 rounded-xl font-semibold text-white cursor-pointer"
         >
-          Add Product
+          + Add Product
         </button>
       </div>
     </div>

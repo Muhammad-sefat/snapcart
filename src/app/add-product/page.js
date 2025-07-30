@@ -17,16 +17,52 @@ const AddProductForm = () => {
     formState: { errors },
   } = useForm();
 
-  const onSubmit = (data) => {
+  // 🔄 Upload + Submit Combined Handler
+  const onSubmit = async (data) => {
     setIsLoading(true);
+    let imageUrl = "";
 
-    setTimeout(() => {
-      console.log("Form Data:", data);
-      dispatch(addProducts(data));
-      toast.success("Product Added successfully");
+    try {
+      // ✅ Upload image if exists
+      if (data.imageFile && data.imageFile.length > 0) {
+        const formData = new FormData();
+        formData.append("image", data.imageFile[0]);
+
+        const res = await fetch(
+          `https://api.imgbb.com/1/upload?key=27a5fca24da89d48f496cddd1dd05cc4`,
+          {
+            method: "POST",
+            body: formData,
+          }
+        );
+
+        const imgData = await res.json();
+        if (imgData.success) {
+          imageUrl = imgData.data.url;
+        } else {
+          toast.error("Image upload failed");
+          setIsLoading(false);
+          return;
+        }
+      }
+
+      const { imageFile, ...rest } = data;
+
+      const finalData = {
+        ...rest,
+        image: imageUrl,
+        createdAt: new Date().toISOString(),
+      };
+
+      dispatch(addProducts(finalData));
+      toast.success("✅ Product added successfully!");
       reset();
-      setIsLoading(false);
-    }, 1000);
+    } catch (err) {
+      console.error(err);
+      toast.error("Something went wrong.");
+    }
+
+    setIsLoading(false);
   };
 
   return (
@@ -76,15 +112,16 @@ const AddProductForm = () => {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             <div>
               <label className="block text-sm font-medium mb-1">
-                Image URL
+                Product Image
               </label>
               <input
-                type="text"
-                placeholder="https://..."
-                {...register("image")}
+                type="file"
+                accept="image/*"
+                {...register("imageFile")}
                 className="w-full p-2 text-sm border border-gray-300 rounded-lg outline-none focus:border-orange-500"
               />
             </div>
+
             <div>
               <label className="block text-sm font-medium mb-1">Price</label>
               <input

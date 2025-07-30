@@ -1,5 +1,6 @@
 "use client";
-import { useRef, useEffect } from "react";
+
+import { useEffect, useRef, useState } from "react";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -8,39 +9,26 @@ import Image from "next/image";
 
 gsap.registerPlugin(ScrollTrigger, SplitText);
 
-const products = [
-  {
-    id: 1,
-    title: "Smartwatch Series X",
-    subtitle: "Stay connected on the go",
-    price: "$129.99",
-    image: "/assets/earbuds1.jpg",
-    category: "Smartwatch",
-  },
-  {
-    id: 2,
-    title: "Noise Buds Pro",
-    subtitle: "Crystal clear sound",
-    price: "$79.99",
-    image: "/assets/earbuds2.jpg",
-    category: "Earbuds",
-  },
-  {
-    id: 3,
-    title: "SnapCam 4K",
-    subtitle: "Capture every moment",
-    price: "$199.99",
-    image: "/assets/earbuds3.jpg",
-    category: "Camera",
-  },
-];
-
 const HomeCard = () => {
+  const [products, setProducts] = useState([]);
   const cardTitle = useRef();
   const cardSubTitle = useRef();
-  const cardRefs = useRef([]); // holds all product card refs
+  const cardRefs = useRef([]);
 
-  // TITLE + SUBTITLE animation
+  console.log(products);
+  // 🟡 Load products from localStorage
+  useEffect(() => {
+    const stored = localStorage.getItem("products");
+    if (stored) {
+      const parsed = JSON.parse(stored);
+      const sorted = parsed.sort(
+        (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
+      );
+      setProducts(sorted);
+    }
+  }, []);
+
+  // ✨ GSAP Animations
   useGSAP(() => {
     const splitText = new SplitText(cardTitle.current, { type: "words" });
     const splitSubText = new SplitText(cardSubTitle.current, {
@@ -85,7 +73,7 @@ const HomeCard = () => {
     };
   }, []);
 
-  // CARD flip animation
+  // Card animation
   useEffect(() => {
     cardRefs.current.forEach((el, i) => {
       gsap.fromTo(
@@ -109,7 +97,7 @@ const HomeCard = () => {
         }
       );
     });
-  }, []);
+  }, [products]);
 
   return (
     <div className="section-padding-x py-6 lg:py-12">
@@ -128,14 +116,17 @@ const HomeCard = () => {
       </p>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+        {products.length === 0 && (
+          <p className="text-center col-span-3">No products added yet.</p>
+        )}
         {products.map((product, index) => (
           <div
-            key={product.id}
+            key={product.id || index}
             ref={(el) => (cardRefs.current[index] = el)}
             className="bg-white shadow-md rounded-xl p-4 hover:shadow-lg transition transform-gpu"
           >
             <div className="w-full h-56 relative mb-4 rounded-lg overflow-hidden">
-              <Image
+              <img
                 src={product.image}
                 alt={product.title}
                 layout="fill"
