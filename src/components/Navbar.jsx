@@ -12,11 +12,11 @@ const ResponsiveNavbar = () => {
 
   return (
     <nav className="flex items-center justify-between w-full relative dark:bg-slate-900 bg-white  section-padding-x py-[8px]">
-      {/* logo */}
-      {/* <img src="/tech.jpg" alt="logo" className="w-[85px] rouded-full" /> */}
-      <h2 className="text-2xl font-bold bg-gradient-to-r from-orange-500 via-pink-500 to-purple-600 bg-clip-text text-transparent">
-        SnapCart
-      </h2>
+      <Link href="/">
+        <h2 className="text-2xl font-bold bg-gradient-to-r from-orange-500 via-pink-500 to-purple-600 bg-clip-text text-transparent">
+          SnapCart
+        </h2>
+      </Link>
 
       {/* nav links */}
       <ul className="items-center gap-[20px] text-[1rem] md:flex hidden">
@@ -28,9 +28,6 @@ const ResponsiveNavbar = () => {
 
       {/* action buttons */}
       <div className="items-center gap-[10px] flex">
-        <button className="py-[7px] text-[.9rem] px-[16px] border border-orange-500 rounded-xl bg-black/20  text-white hover:bg-orange-500 transition-all duration-300 sm:flex hidden cursor-pointer">
-          Sign in
-        </button>
         <button className="py-[7px] text-[.9rem] px-[16px] border border-orange-500 rounded-xl bg-black/20  text-white hover:bg-orange-500 transition-all duration-300 sm:flex hidden cursor-pointer">
           Sign up
         </button>

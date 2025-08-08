@@ -5,7 +5,12 @@ import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { SplitText } from "gsap/SplitText";
-import Image from "next/image";
+import Link from "next/link";
+import toast from "react-hot-toast";
+import { ChevronLeft, ChevronRight } from "lucide-react";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Navigation } from "swiper/modules";
+import "swiper/css";
 
 gsap.registerPlugin(ScrollTrigger, SplitText);
 
@@ -16,7 +21,6 @@ const HomeCard = () => {
   const cardRefs = useRef([]);
 
   console.log(products);
-  // 🟡 Load products from localStorage
   useEffect(() => {
     const stored = localStorage.getItem("products");
     if (stored) {
@@ -99,6 +103,12 @@ const HomeCard = () => {
     });
   }, [products]);
 
+  const handleDelete = (id) => {
+    const updatedProducts = products.filter((product) => product.id !== id);
+    setProducts(updatedProducts);
+    localStorage.setItem("products", JSON.stringify(updatedProducts));
+    toast.success("Product deleted successfully.");
+  };
   return (
     <div className="section-padding-x py-6 lg:py-12">
       <h1
@@ -115,43 +125,76 @@ const HomeCard = () => {
         prices.
       </p>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+      <Swiper
+        loop
+        spaceBetween={20}
+        slidesPerView={1}
+        breakpoints={{
+          640: { slidesPerView: 2 },
+          1024: { slidesPerView: 3 },
+        }}
+        navigation={{
+          nextEl: ".custom-next",
+          prevEl: ".custom-prev",
+        }}
+        modules={[Navigation]}
+      >
         {products.length === 0 && (
-          <p className="text-center col-span-3">No products added yet.</p>
+          <SwiperSlide>
+            <p className="text-center col-span-3 text-lg font-medium">
+              No products added yet.
+            </p>
+          </SwiperSlide>
         )}
+
         {products.map((product, index) => (
-          <div
-            key={product.id || index}
-            ref={(el) => (cardRefs.current[index] = el)}
-            className="bg-white shadow-md rounded-xl p-4 hover:shadow-lg transition transform-gpu"
-          >
-            <div className="w-full h-56 relative mb-4 rounded-lg overflow-hidden">
-              <img
-                src={product.image}
-                alt={product.title}
-                layout="fill"
-                objectFit="contain"
-                className="rounded-lg w-full hover:scale-105 transform transition-all duration-300 ease-in-out"
-              />
-            </div>
+          <SwiperSlide key={product.id || index}>
+            <div
+              ref={(el) => (cardRefs.current[index] = el)}
+              className="bg-white shadow-md rounded-xl p-4 hover:shadow-lg transition transform-gpu"
+            >
+              <div className="w-full h-56 relative mb-4 rounded-lg overflow-hidden">
+                <img
+                  src={product.image}
+                  alt={product.title}
+                  className="rounded-lg w-full h-[190px] object-cover hover:scale-105 transform transition-all duration-300 ease-in-out"
+                />
+              </div>
 
-            <h2 className="text-xl font-semibold mb-1">{product.title}</h2>
-            <p className="text-muted mb-2">{product.subtitle}</p>
-            <div className="mb-2 flex items-center justify-between">
-              <p className="text-lg font-bold mb-4 text-primary">
-                {product.price}
-              </p>
-              <span className="inline-block bg-orange-100 text-orange-600 text-xs font-medium px-3 py-1 rounded-full">
-                {product.category}
-              </span>
-            </div>
+              <h2 className="text-xl font-semibold mb-1">{product.title}</h2>
+              <p className="text-muted mb-2">{product.subtitle}</p>
+              <div className="mb-2 flex items-center justify-between">
+                <p className="text-lg font-bold mb-4 text-primary">
+                  ${product.price}
+                </p>
+                <span className="inline-block bg-orange-100 text-orange-600 text-xs font-medium px-3 py-1 rounded-full">
+                  {product.category}
+                </span>
+              </div>
 
-            <button className="bg-black/80 text-white px-4 py-2 rounded-xl border border-orange-500 font-medium hover:bg-orange-500 transition cursor-pointer">
-              See Details
-            </button>
-          </div>
+              <div className="flex items-center justify-between">
+                <Link href={`/product-details?id=${product.id}`}>
+                  <button className="bg-black/80 text-white text-sm px-3 py-1.5 rounded-xl border border-orange-500 font-medium hover:bg-orange-500 transition cursor-pointer">
+                    See Details
+                  </button>
+                </Link>
+                <button
+                  onClick={() => handleDelete(product.id)}
+                  className="bg-black/80 text-white text-sm px-3 py-1.5 rounded-xl border border-orange-500 font-medium hover:bg-orange-500 transition cursor-pointer"
+                >
+                  Delete
+                </button>
+              </div>
+            </div>
+          </SwiperSlide>
         ))}
-      </div>
+        <button className="custom-prev absolute left-2 top-1/2 z-10 bg-black/80 text-white p-2 rounded-full hover:bg-orange-500">
+          <ChevronLeft size={20} />
+        </button>
+        <button className="custom-next absolute right-2 top-1/2 z-10 bg-black text-white p-2 rounded-full hover:bg-orange-500">
+          <ChevronRight size={20} />
+        </button>
+      </Swiper>
 
       <div className="text-center mt-8">
         <button className="bg-black/80 text-white px-8 py-2 rounded-xl border border-orange-500 font-medium hover:bg-orange-500 transition cursor-pointer">

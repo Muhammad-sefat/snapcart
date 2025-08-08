@@ -49,13 +49,14 @@ const AddProductForm = () => {
       const { imageFile, ...rest } = data;
 
       const finalData = {
+        id: Date.now(),
         ...rest,
         image: imageUrl,
         createdAt: new Date().toISOString(),
       };
 
       dispatch(addProducts(finalData));
-      toast.success("✅ Product added successfully!");
+      toast.success("Product added successfully!");
       reset();
     } catch (err) {
       console.error(err);
